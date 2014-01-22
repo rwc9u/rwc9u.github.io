@@ -7,6 +7,8 @@ tumblr_url: http://neutronflux.net/post/25423652036/migrations-without-a-restart
 ---
 I ran into a situation today where I had 10 long running background processes that were getting bogged down because we were missing an index. The app is running on Heroku on a shared database, so I don’t have the luxury of using psql to add the needed index. However, I wanted to figure out a way to add the index without restarting the long-running processes.
 
+<!-- more --> 
+
 My solution was to log in via the console, and create the migration by
 hand.
 
