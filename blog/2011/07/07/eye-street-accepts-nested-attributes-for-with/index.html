@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Accepts Nested Attributes with Polymorphic Associations and a Custom Autosave - Neutron Flux</title>
+  <meta name="author" content="Rob Christie">
+  <link rel="author" href="humans.txt">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  
+    
+  
+  <meta name="description" content="Edit: This was originally posted on
+my companies blog. Wheew… what a title… kinda dry, very geeky, but if you landed here, hopefully this will help &hellip;">
+  
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rwc9u.github.io/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Neutron Flux" type="application/atom+xml">
+  <meta name="og:type" content="website" />
+  <meta name="og:site_name" content="Neutron Flux" />
+  <meta name="og:title" content="Accepts Nested Attributes with Polymorphic Associations and a Custom Autosave" />
+  <meta name="og:description" content="Edit: This was originally posted on
+my companies blog. Wheew… what a title… kinda dry, very geeky, but if you landed here, hopefully this will help &hellip;" />
+  <meta name="og:url" content="http://rwc9u.github.io/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/"/>
+  <meta name="url" content="http://rwc9u.github.io/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/">
+  
+  <meta name="subject" content=""/>
+  <meta name="category" content=""/>
+  
+  <meta name="distribution" content="global">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="/">Neutron Flux</a>
+    <ul class="nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog/archives">Archives</a></li>
+    </ul>
+    <ul class="nav" data-subscription="rss">
+      <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+      
+    </ul>
+      
+    <form class="navbar-form" action="http://google.com/search" method="get">
+      <fieldset role="search">
+        <input type="hidden" name="q" value="site:rwc9u.github.io" />
+        <input class="span2" type="text" name="q" results="0" placeholder="Search"/>
+      </fieldset>
+    </form>
+      
+    
+  </div>
+</div>
+</nav>
+  <div class="wrapper_single">
+    <div class="container">
+      <article class="span8 offset2" role="article">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title">Accepts Nested Attributes With Polymorphic Associations and a Custom Autosave</h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-07T08:11:24-06:00" pubdate data-updated="true">Jul 7<span>th</span>, 2011</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Edit: This was originally posted on
+<a href="http://blog.eyestreet.com/post/7309604903/accepts-nested-attributes-for-with-polymorphic">my companies blog</a>.</p>
+
+<p>Wheew… what a title… kinda dry, very geeky, but if you landed here, hopefully this will help. This blog documents some of the code wrangling that we did for a recent app, VRCompliance. I needed to have the ability to create multiple phone numbers when inputting either addresses or people in our system. It seemed like a great time to use models with with the :accepts_nested_attributes_for :nested_model declaration. When doing this I found out that the default creation of a nested object was not what I wanted. Essentially, I wanted  a find_or_create for the nested object. After some searching I came across this StackOverflow article that describes a solution. This post adds to the discussed solution by going into additional detail and fleshing out the answer described in the previous link.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>For this post I’ve simplified our objects so our sample application has people, addresses, and phone numbers. Both a person and an address can have many phone numbers. Additionally, with our application’s data it is possible to have a many-to-many relationship between the phone numbers, people and addresses. Instead of using two separate join tables to describe these relationships, I went with a polymorphic association, calling our resulting common join table, phonings, and the polymorphic relations a phonable.</p>
+
+<p>Our  models look similar to the snippets below:</p>
+
+<div><script src='https://gist.github.com/1038766.js?file=address.rb'></script>
+<noscript><pre><code>class Address &lt; ActiveRecord::Base
+  has_many :phonings, :as =&gt; :phonable
+  has_many :phone_numbers, :through =&gt; :phonings
+
+  accepts_nested_attributes_for :phonings, :allow_destroy =&gt; true
+
+end
+</code></pre></noscript></div>
+
+
+
+
+<div><script src='https://gist.github.com/1038766.js?file=person.rb'></script>
+<noscript><pre><code>class Person &lt; ActiveRecord::Base
+  has_many :phonings, :as =&gt; :phonable
+  has_many :phone_numbers, :through =&gt; :phonings
+end</code></pre></noscript></div>
+
+
+
+
+<div><script src='https://gist.github.com/1038766.js?file=phone_number.rb'></script>
+<noscript><pre><code>class PhoneNumber &lt; ActiveRecord::Base
+  has_many :phonings, :dependent =&gt; :destroy
+  has_many :addresses, :through =&gt; :phonings, :source =&gt; :phonable, :source_type =&gt; &quot;Address&quot;
+  has_many :people, :through =&gt; :phonings, :source =&gt; :phonable, :source_type =&gt; &quot;Person&quot;
+end
+</code></pre></noscript></div>
+
+
+<p>And the initial phoning model was:</p>
+
+<div><script src='https://gist.github.com/1038766.js?file=phoning_original.rb'></script>
+<noscript><pre><code>class Phoning &lt; ActiveRecord::Base
+  belongs_to :phone_number, :autosave =&gt; true
+  belongs_to :phonable, :polymorphic =&gt; true
+
+  accepts_nested_attributes_for :phone_number
+end
+</code></pre></noscript></div>
+
+
+<p>With the models and their relationships defined, I built the forms for creating an address, and wanted to nest the creation of the phone numbers within the forms for the creating of both a person and address. Initially, I think I had  :accepts_nested_attributes_for :phone_numbers in the address object, but there were issues with that approach.</p>
+
+<p>First, deletion of the phone number deleted the object, and second, if I added the phone number to two different objects then I would get validation errors due to uniqueness constraints that I have on our real phone number object.  After digging around, I found some links that discussed making the nested attributes for the join table so that on deletion you are really deleting the join object and not the object it relates. This resulted in :accepts_nested_attributes_for :phonings in the address object (as seen above).</p>
+
+<p>Deleting of an object no longer deleted my phone number object, just
+the phoning object. However, I still had the issue that if the same
+phone number was added to two addresses via nested attributes then two
+distinct phone number objects were created. The test below shows
+passing tests that document this issue. Two addresses are initialized
+and saved with the same nested phone number. After saving both, we
+find that we have two phone number objects with the same phone number.</p>
+
+<div><script src='https://gist.github.com/1038766.js?file=address_test.rb'></script>
+<noscript><pre><code>  test &quot;By default adding the same phone number will create a new phone number row when adding a second phone number&quot; do
+    a = Address.new(default_address(
+                                    &quot;phonings_attributes&quot;=&gt;
+                                    {&quot;1289233155995&quot;=&gt;
+                                      {&quot;phone_number_attributes&quot;=&gt;
+                                        {&quot;phone_number&quot;=&gt;&quot;17032221234&quot;},
+                                        &quot;_destroy&quot;=&gt;&quot;false&quot;}
+                                    }
+                                    ))
+    a.save!
+    assert_equal &quot;Cville&quot;, Address.find(a.id).city
+    assert_equal &quot;17032221234&quot;, Address.find(a.id).phone_numbers.first.phone_number
+    b = Address.new(default_address(:address1 =&gt; &quot;234 Test&quot;,
+                                    &quot;phonings_attributes&quot;=&gt;
+                                    {&quot;1289233155995&quot;=&gt;
+                                      {&quot;phone_number_attributes&quot;=&gt;
+                                        {&quot;phone_number&quot;=&gt;&quot;17032221234&quot;},
+                                        &quot;_destroy&quot;=&gt;&quot;false&quot;}
+                                    }
+                                    ))
+    b.save!
+    assert_equal &quot;Cville&quot;, Address.find(b.id).city
+    assert_equal &quot;17032221234&quot;, Address.find(b.id).phone_numbers.first.phone_number
+    assert_equal @original_phone_number_count + 2, PhoneNumber.count
+    assert_equal 2, PhoneNumber.where(:phone_number =&gt; &quot;17032221234&quot;).count
+  end
+</code></pre></noscript></div>
+
+
+<p>Based on the StackOverflow thread from above, I realized that I needed to change the autosave creation of phone numbers. It should be noted that accepts_nested_attributes_for automatically sets :autosave for the model. Autosave means that associated records are automatically saved when the parent object is saved. In our examples this means that when an Address object is saved the Phoning object and the PhoneNumber object are saved. The default functionality is to create a new object. The gist below shows the necessary changes to our test to generate the desired functionality of the find or create for the nested phone numbers.</p>
+
+<div><script src='https://gist.github.com/1038766.js?file=address_test_2.rb'></script>
+<noscript><pre><code>  test &quot;When you override the autosave associated for the join table then you can point multiple addresses at the same phone number object.&quot; do
+
+    # overriding autosave_associated_records_for_phone_numbers
+    Phoning.send :define_method, :autosave_associated_records_for_phone_number do
+      if new_phone_number = PhoneNumber.where(:phone_number =&gt;  phone_number.phone_number).first then
+           self.phone_number = new_phone_number
+      else
+        self.phone_number.save!
+        self.phone_number_id = self.phone_number.id
+      end
+    end
+
+    a = Address.new(default_address(
+                                    &quot;phonings_attributes&quot;=&gt;
+                                    {&quot;1289233155995&quot;=&gt;
+                                      {&quot;phone_number_attributes&quot;=&gt;
+                                        {&quot;phone_number&quot;=&gt;&quot;17032221234&quot;},
+                                        &quot;_destroy&quot;=&gt;&quot;false&quot;}
+                                    }
+                                    ))
+    a.save!
+    assert_equal &quot;Cville&quot;, Address.find(a.id).city
+    assert_equal &quot;17032221234&quot;, Address.find(a.id).phone_numbers.first.phone_number
+    b = Address.new(default_address(:address1 =&gt; &quot;234 Test&quot;,
+                                    &quot;phonings_attributes&quot;=&gt;
+                                    {&quot;1289233155995&quot;=&gt;
+                                      {&quot;phone_number_attributes&quot;=&gt;
+                                        {&quot;phone_number&quot;=&gt;&quot;17032221234&quot;},
+                                        &quot;_destroy&quot;=&gt;&quot;false&quot;}
+                                    }
+                                    ))
+    b.save!
+    assert_equal &quot;Cville&quot;, Address.find(b.id).city
+    assert_equal &quot;17032221234&quot;, Address.find(b.id).phone_numbers.first.phone_number
+    assert_equal 3, PhoneNumber.count
+    assert_equal 1, PhoneNumber.where(:phone_number =&gt; &quot;17032221234&quot;).count
+  end</code></pre></noscript></div>
+
+
+<p>We can then move that functionality back in to our model:</p>
+
+<div><script src='https://gist.github.com/1038766.js?file=phoning.rb'></script>
+<noscript><pre><code>class Phoning &lt; ActiveRecord::Base
+  belongs_to :phone_number, :autosave =&gt; true
+  belongs_to :phonable, :polymorphic =&gt; true
+
+  accepts_nested_attributes_for :phone_number
+
+  def autosave_associated_records_for_phone_number
+    if new_phone_number = PhoneNumber.where(:phone_number =&gt; phone_number.phone_number).first then
+      self.phone_number = new_phone_number
+    else
+      self.phone_number.save!
+      self.phone_number_id = self.phone_number.id
+    end
+  end
+end
+</code></pre></noscript></div>
+
+
+<p>In a future post, I will walk through the view and controllers used for these nested forms.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-07T08:11:24-06:00" pubdate data-updated="true">Jul 7<span>th</span>, 2011</time> - 
+      
+
+
+    </p>
+    
+      
+
+
+<div class="sharing">
+  <ul>
+    
+    
+    <li class="twitter">
+      <a href="http://twitter.com/share"
+          class="twitter-share-button"
+          data-url="http://rwc9u.github.io/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/"
+          data-via="rwc9u"
+          data-counturl="http://rwc9u.github.io/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/">Tweet</a>
+    </li>
+    
+    
+    
+    
+    
+    
+    
+  </ul>
+</div>
+
+    
+    
+      <a class="pull-left" href="/blog/2011/04/19/emacs-configuration/" title="Previous Post: Emacs Configuration">&laquo; Emacs Configuration</a>
+    
+    
+      <a class="pull-right" href="/blog/2012/06/19/migrations-without-a-restart-on-heroku/" title="Next Post: Migrations Without a Restart on Heroku">Migrations Without a Restart on Heroku &raquo;</a>
+    
+  </footer>
+
+</div>
+
+        
+      </article>
+    </div>
+  </div>
+  <div id="footer-widgets">
+  <div class="container">
+    <div class="row">
+  <div class="span3">
+    <h2>recent posts</h2>
+    <ul class="recent_posts">
+      
+        <li>
+          <a href="/blog/2012/06/19/migrations-without-a-restart-on-heroku/">Migrations Without a Restart on Heroku</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/">Accepts Nested Attributes with Polymorphic Associations and a Custom Autosave</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/04/19/emacs-configuration/">Emacs Configuration</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2010/12/17/forcing-before-validations-to-run-and-save-the-updated/">Forcing :before_validations to run and save the updated data</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2009/07/27/shoulda-snippets-for-emacs/">Shoulda Snippets For Emacs</a>
+        </li>
+      
+    </ul>
+    <h2><a href="/blog/archives">archives</a></h2>
+  </div>
+  <div class="span3">
+    
+
+  </div>
+  <div class="span4">
+    
+<h2>twitter</h2>
+<a class="twitter-timeline" href="https://twitter.com/rwc9u" data-widget-id="426048542512119808">Tweets by @rwc9u</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+  </div>
+  <div class="span2">
+    <h2>found on</h2>
+
+<a href="https://github.com/rwc9u/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+
+
+
+<a href="http://stackoverflow.com/users/rwc9u/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
+
+
+
+<a href="http://www.linkedin.com/in/rchristie" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+
+
+
+<a href="http://twitter.com/rwc9u" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
+
+
+
+
+
+
+
+
+  </div>
+</div>
+
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-left">
+  <a href="/">Neutron Flux</a>
+  - Copyright &copy; 2014 - Rob Christie
+</p>
+<p class="pull-right">
+  <span>Powered by <a href="http://octopress.org/">Octopress</a>.</span>
+  
+    <span>Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.</span>
+  
+</p>
+
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
+<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
+<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
+<script src="/javascripts/custom.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

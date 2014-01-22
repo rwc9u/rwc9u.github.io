@@ -1,1 +1,642 @@
-My Octopress Page is coming soon &hellip;
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Neutron Flux</title>
+  <meta name="author" content="Rob Christie">
+  <link rel="author" href="humans.txt">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  
+    
+  
+  <meta name="description" content=" ">
+  
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://rwc9u.github.io/">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Neutron Flux" type="application/atom+xml">
+  <meta name="og:type" content="website" />
+  <meta name="og:site_name" content="Neutron Flux" />
+  <meta name="og:title" content="Neutron Flux" />
+  <meta name="og:description" content=" " />
+  <meta name="og:url" content="http://rwc9u.github.io/index.html"/>
+  <meta name="url" content="http://rwc9u.github.io/index.html">
+  
+  <meta name="distribution" content="global">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <div id="front-wrapper">
+  <div id="hero">
+    <div id="hero-inner" class="container">
+      <div class="span10 offset1">
+  <h1>
+    Neutron Flux
+  </h1>
+  <h2>Could be worse, could be raining.</h2>
+</div>
+
+    </div>
+  </div>
+  <section id="sub-hero">
+    <div class="container">
+      <div class="row">
+  <div class="span4">
+    <h2>about me</h2>
+<p>father, husband, software engineer, emacs devotee, wannabe snowboarder</p>
+
+  </div>
+  <div class="span6">
+    
+<h2>recent public projects</h2>
+<dl id="gh_repos" class="dl-horizontal" data-github-user="rwc9u" data-github-repo-count="0" data-github-skip-forks="true">
+  <dd class="loading">Status updating&#8230;</dd>
+</dl>
+<script src="/javascripts/github.js" type="text/javascript"> </script>
+<script src="/javascripts/libs/jXHR.js" type="text/javascript"> </script>
+
+
+  </div>
+  <div class="span2">
+    <h2>found on</h2>
+
+<a href="https://github.com/rwc9u/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+
+
+
+<a href="http://stackoverflow.com/users/rwc9u/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
+
+
+
+<a href="http://www.linkedin.com/in/rchristie" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+
+
+
+<a href="http://twitter.com/rwc9u" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
+
+
+
+
+
+
+
+
+  </div>
+</div>
+
+    </div>
+  </section>
+  <div class="container">
+    <div class="row" id="post-container">
+    
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/19/migrations-without-a-restart-on-heroku/">Migrations Without a Restart on Heroku</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-19T02:02:00-06:00" pubdate data-updated="true">Jun 19<span>th</span>, 2012</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I ran into a situation today where I had 10 long running background processes that were getting bogged down because we were missing an index. The app is running on Heroku on a shared database, so I don’t have the luxury of using psql to add the needed index. However, I wanted to figure out a way to add the index without restarting the long-running processes.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/06/19/migrations-without-a-restart-on-heroku/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/">Accepts Nested Attributes With Polymorphic Associations and a Custom Autosave</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-07T08:11:24-06:00" pubdate data-updated="true">Jul 7<span>th</span>, 2011</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Edit: This was originally posted on
+<a href="http://blog.eyestreet.com/post/7309604903/accepts-nested-attributes-for-with-polymorphic">my companies blog</a>.</p>
+
+<p>Wheew… what a title… kinda dry, very geeky, but if you landed here, hopefully this will help. This blog documents some of the code wrangling that we did for a recent app, VRCompliance. I needed to have the ability to create multiple phone numbers when inputting either addresses or people in our system. It seemed like a great time to use models with with the :accepts_nested_attributes_for :nested_model declaration. When doing this I found out that the default creation of a nested object was not what I wanted. Essentially, I wanted  a find_or_create for the nested object. After some searching I came across this StackOverflow article that describes a solution. This post adds to the discussed solution by going into additional detail and fleshing out the answer described in the previous link.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/19/emacs-configuration/">Emacs Configuration</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-19T23:55:00-06:00" pubdate data-updated="true">Apr 19<span>th</span>, 2011</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I’ve had my emacs configuration under version control for the better part of the last decade, cvs then svn, and for the last 3 years git. I finally bit the bullet, and purged it of private data. Since I doubt the history is that interesting to most people, I kept a local historical branch, and then truncated the master branch which is now available in my  github repos.</p>
+
+<p>I used to use a monolithic .emacs file. When I declared .emacs bankruptcy a few years ago, I followed @rmm5t’s and @defunkt’s conventions… albeit probably not as nicely.</p>
+</div>
+  
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/17/forcing-before-validations-to-run-and-save-the-updated/">Forcing :before_validations to Run and Save the Updated Data</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-17T10:44:17-07:00" pubdate data-updated="true">Dec 17<span>th</span>, 2010</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I meant to write this up awhile ago, but just want to get it out… Have you ever decided to massage incoming data in a :before_validation. I ran into an issue recently where I added a change to a before_validation to remove extraneous characters from phone numbers. I already had a ton of numbers in the system, so I thought I would then be able to just iteration through the list of phone numbers and resave them, and voila… my data would be updated and I could then enable additional validation checks.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2010/12/17/forcing-before-validations-to-run-and-save-the-updated/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/07/27/shoulda-snippets-for-emacs/">Shoulda Snippets for Emacs</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-27T22:00:00-06:00" pubdate data-updated="true">Jul 27<span>th</span>, 2009</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have just updated my Shoulda snippets for the Emacs YASnippets templating package. Shoulda is a ruby-based testing framework that consists of test macros, assertions, and helpers added on to the Test::Unit ruby framework. The snippets are based, and in many cases copied from the TextMate Shoulda snippet bundle, and modified where needed to work with the YASnippets package. New features in the recently released 0.6beta of YASnippet allow support for more of the TextMate-based snippets. The new YASnippet functionality is discussed in more detail in a post I did on Emacs Blog.</p>
+
+<p>In order to port many of the snippets over from the TextMate bundle I wrote a script that automates the process. There is a Python script that does something very similar. The writing of my script was more of just a code kata for me, so take a look at both. One may be more suitable for your needs.</p>
+</div>
+  
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/02/22/better-oracle-support-for-db-structure-dump/">Better Oracle Support for Db:structure:dump</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-22T22:00:00-07:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2009</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you have tried</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="ss">structure</span><span class="p">:</span><span class="n">dump</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>in a rails app when using Oracle as your database, then you have probably been slightly disappointed. The same rake task for MySQL and Postgres dumps everything you need to recreate the database. The task for Oracle only dumps SQL for the table creation (no constraints), and for the sequences. The <a href="http://github.com/eyestreet/active_record_oracle_extensions/tree/master">active_record_oracle_extensions</a> plug now supports dumping sql for the following:</p>
+
+<ul>
+<li>primary keys</li>
+<li>indexes</li>
+<li>foreign keys</li>
+<li>synonyms</li>
+</ul>
+
+
+<p>I have added enough functionality to scratch my itch. If you need something else or find a bug let me know.</p>
+</div>
+  
+  
+
+
+</div>
+
+      </article>
+    
+    
+      <article class="span4">
+        <div class="article-format">
+
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/01/01/active-record-oracle-extensions-plugin/">Active Record Oracle Extensions Plugin</a></h1>
+    
+    
+      <p class="meta">
+        
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Rob Christie</span></span>
+  
+
+ - 
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-01T22:00:00-07:00" pubdate data-updated="true">Jan 1<span>st</span>, 2009</time> - 
+        
+
+
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>NOTE:</strong> This post is OBE. Check out the active record oracle
+adapter. Most/all changes have been added to it.</p>
+
+<p>The <a href="http://github.com/eyestreet/active_record_oracle_extensions/tree/master">active_record_oracle_extensions plugin</a> provides support for adding foreign keys to migrations, adding synonyms to migrations, and disabling foreign key constraints during fixture loading. These are features that I needed in my applications, but either did not exist in other plugins, or the plugins seem to have been abandoned.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2009/01/01/active-record-oracle-extensions-plugin/">Read on &rarr;</a>
+    </footer>
+  
+
+
+</div>
+
+      </article>
+    
+    </div>
+      <div class="row">
+        <ul class="pager">
+          
+          
+        </ul>
+      </div>
+  </div>
+</div>
+
+
+  <div id="footer-widgets">
+  <div class="container">
+    <div class="row">
+  <div class="span3">
+    <h2>recent posts</h2>
+    <ul class="recent_posts">
+      
+        <li>
+          <a href="/blog/2012/06/19/migrations-without-a-restart-on-heroku/">Migrations Without a Restart on Heroku</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/07/07/eye-street-accepts-nested-attributes-for-with/">Accepts Nested Attributes with Polymorphic Associations and a Custom Autosave</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2011/04/19/emacs-configuration/">Emacs Configuration</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2010/12/17/forcing-before-validations-to-run-and-save-the-updated/">Forcing :before_validations to run and save the updated data</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2009/07/27/shoulda-snippets-for-emacs/">Shoulda Snippets For Emacs</a>
+        </li>
+      
+    </ul>
+    <h2><a href="/blog/archives">archives</a></h2>
+  </div>
+  <div class="span3">
+    
+
+  </div>
+  <div class="span4">
+    
+<h2>twitter</h2>
+<a class="twitter-timeline" href="https://twitter.com/rwc9u" data-widget-id="426048542512119808">Tweets by @rwc9u</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+  </div>
+  <div class="span2">
+    <h2>found on</h2>
+
+<a href="https://github.com/rwc9u/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+
+
+
+<a href="http://stackoverflow.com/users/rwc9u/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
+
+
+
+<a href="http://www.linkedin.com/in/rchristie" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+
+
+
+<a href="http://twitter.com/rwc9u" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
+
+
+
+
+
+
+
+
+  </div>
+</div>
+
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-left">
+  <a href="/">Neutron Flux</a>
+  - Copyright &copy; 2014 - Rob Christie
+</p>
+<p class="pull-right">
+  <span>Powered by <a href="http://octopress.org/">Octopress</a>.</span>
+  
+    <span>Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.</span>
+  
+</p>
+
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
+<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
+<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
+<script src="/javascripts/custom.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>
