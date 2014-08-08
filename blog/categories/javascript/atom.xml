@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | Neutron Flux]]></title>
+  <link href="http://rwc9u.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://rwc9u.github.io/"/>
+  <updated>2014-08-08T00:32:43-06:00</updated>
+  <id>http://rwc9u.github.io/</id>
+  <author>
+    <name><![CDATA[Rob Christie]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bower, Rails, and Javascript Components with CSS and Images]]></title>
+    <link href="http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images/"/>
+    <updated>2014-08-07T23:58:10-06:00</updated>
+    <id>http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images</id>
+    <content type="html"><![CDATA[<p>There are a number of good articles describing the setup of <a href="http://bower.io/">bower</a> with rails applications, but I was having a hard time finding a good description for how to integrate Bower, Rails, and javascript components that contain CSS and images. Specifically, I was trying to use bower to manage my applications dependency on <a href="http://ivaynberg.github.io/select2/">select2</a>.</p>
+
+<h3>TL;DR;</h3>
+
+<p>Use the <a href="https://github.com/42dev/bower-rails">bower-rails</a> gem.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>It provides a number of nice rake tasks that help integrate the use of bower with a rails application and the asset pipeline. I prefer to stick with the bower.json configuration instead of the ruby-based DSL that bower-rails provides. I stick with the default bower location that stores assets in vendor/assets/bower_components. Make sure to add the following to your application.rb.</p>
+
+<pre><code>config.assets.paths &lt;&lt;  Rails.root.join("vendor","assets","bower_components")
+</code></pre>
+
+<p>Once you have packages added to your bower.json, then you run the following:</p>
+
+<pre><code>rake bower:install
+</code></pre>
+
+<p>to install your javascript packages. You then reference the javacript in your application.js and application.css files.</p>
+
+<p>For javascript components that reference images within their CSS, you need some mechanism for updating the asset paths to be rails asset pipeline friendly. Bower-rails aids in fixing this issue with the provided rake task:</p>
+
+<pre><code>rake bower:resolve 
+</code></pre>
+
+<p>It resolves relative asset paths in components by rewriting url references in component css files with the rails helper method to reference the asset in an asset pipeline friendly way. See <a href="https://github.com/42dev/bower-rails/blob/master/lib/bower-rails/performer.rb#L118">BowerRails::Performer#resolve_asset_paths</a> for more detail.</p>
+
+<p>My preference is to check in all of the bower_components into our repository, so we run bower:install followed by bower:resolve. You then need to add the images referenced within the package to your config.assets.precompile list for your staging and production environments. For example here is the setup for adding the <a href="http://ivaynberg.github.io/select2/">select2</a> javascript component to your rails project using bower and rails.</p>
+
+<p>bower.json:</p>
+
+<pre><code>{
+    "name": "Acme",
+    "private": true,
+    "dependencies": {
+        "select2": "3.5.1"
+    }
+}
+</code></pre>
+
+<p>app/assets/javascripts/application.js.coffee:</p>
+
+<pre><code>#= require select2/select2
+</code></pre>
+
+<p>app/assets/stylesheets/application.css.sass</p>
+
+<pre><code>//= require select2/select2
+</code></pre>
+
+<p>config/environments/staging.rb and config/environments/production.rb:</p>
+
+<pre><code>config.assets.precompile += ["select2/*.png",
+                            "select2/*.gif"]
+</code></pre>
+
+<p>It&rsquo;s not perfect, but it gives you the dependency management of your javascript components, and it&rsquo;s better then trying to figure out what gems you need to pull in to get the desired javascript component enabled for the asset pipeline.</p>
+]]></content>
+  </entry>
+  
+</feed>

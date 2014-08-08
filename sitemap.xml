@@ -35,11 +35,17 @@
         <lastmod>2014-01-22T14:12:25-07:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images/
+        </loc>
+        <lastmod>2014-08-08T00:30:06-06:00</lastmod>
+    </url>
+    <url>
         <loc>http://rwc9u.github.io/blog/archives/</loc>
-        <lastmod>2014-01-22T14:12:25-07:00</lastmod>
+        <lastmod>2014-08-08T00:30:06-06:00</lastmod>
     </url>
     <url>
         <loc>http://rwc9u.github.io/</loc>
-        <lastmod>2014-01-22T14:12:25-07:00</lastmod>
+        <lastmod>2014-08-08T00:30:06-06:00</lastmod>
     </url>
 </urlset>

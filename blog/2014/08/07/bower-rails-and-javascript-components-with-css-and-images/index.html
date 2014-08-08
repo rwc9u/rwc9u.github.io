@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Active Record Oracle Extensions Plugin - Neutron Flux</title>
+  <title>Bower, Rails, and Javascript Components with CSS and Images - Neutron Flux</title>
   <meta name="author" content="Rob Christie">
   <link rel="author" href="humans.txt">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -13,8 +13,7 @@
   
     
   
-  <meta name="description" content="NOTE: This post is OBE. Check out the active record oracle
-adapter. Most/all changes have been added to it. The active_record_oracle_extensions &hellip;">
+  <meta name="description" content="There are a number of good articles describing the setup of bower with rails applications, but I was having a hard time finding a good description &hellip;">
   
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -22,21 +21,20 @@ adapter. Most/all changes have been added to it. The active_record_oracle_extens
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://rwc9u.github.io/blog/2009/01/01/active-record-oracle-extensions-plugin/">
+  <link rel="canonical" href="http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images/">
   <link href="/favicon.png" rel="icon">
   <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Neutron Flux" type="application/atom+xml">
   <meta name="og:type" content="website" />
   <meta name="og:site_name" content="Neutron Flux" />
-  <meta name="og:title" content="Active Record Oracle Extensions Plugin" />
-  <meta name="og:description" content="NOTE: This post is OBE. Check out the active record oracle
-adapter. Most/all changes have been added to it. The active_record_oracle_extensions &hellip;" />
-  <meta name="og:url" content="http://rwc9u.github.io/blog/2009/01/01/active-record-oracle-extensions-plugin/"/>
-  <meta name="url" content="http://rwc9u.github.io/blog/2009/01/01/active-record-oracle-extensions-plugin/">
+  <meta name="og:title" content="Bower, Rails, and Javascript Components with CSS and Images" />
+  <meta name="og:description" content="There are a number of good articles describing the setup of bower with rails applications, but I was having a hard time finding a good description &hellip;" />
+  <meta name="og:url" content="http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images/"/>
+  <meta name="url" content="http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images/">
   
-  <meta name="subject" content=""/>
-  <meta name="category" content=""/>
+  <meta name="subject" content="BowerJavascriptRails"/>
+  <meta name="category" content="BowerJavascriptRails"/>
   
   <meta name="distribution" content="global">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
@@ -90,7 +88,7 @@ adapter. Most/all changes have been added to it. The active_record_oracle_extens
 
   <header>
     
-      <h1 class="entry-title">Active Record Oracle Extensions Plugin</h1>
+      <h1 class="entry-title">Bower, Rails, and Javascript Components With CSS and Images</h1>
     
     
       <p class="meta">
@@ -115,8 +113,15 @@ adapter. Most/all changes have been added to it. The active_record_oracle_extens
   
 
 
-<time datetime="2009-01-01T22:00:00-07:00" pubdate data-updated="true">Jan 1<span>st</span>, 2009</time> - 
+<time datetime="2014-08-07T23:58:10-06:00" pubdate data-updated="true">Aug 7<span>th</span>, 2014</time> - 
         
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bower/'>Bower</a>, <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
+  
+</span>
 
 
         
@@ -125,65 +130,66 @@ adapter. Most/all changes have been added to it. The active_record_oracle_extens
   </header>
 
 
-  <div class="entry-content"><p><strong>NOTE:</strong> This post is OBE. Check out the active record oracle
-adapter. Most/all changes have been added to it.</p>
+  <div class="entry-content"><p>There are a number of good articles describing the setup of <a href="http://bower.io/">bower</a> with rails applications, but I was having a hard time finding a good description for how to integrate Bower, Rails, and javascript components that contain CSS and images. Specifically, I was trying to use bower to manage my applications dependency on <a href="http://ivaynberg.github.io/select2/">select2</a>.</p>
 
-<p>The <a href="http://github.com/eyestreet/active_record_oracle_extensions/tree/master">active_record_oracle_extensions plugin</a> provides support for adding foreign keys to migrations, adding synonyms to migrations, and disabling foreign key constraints during fixture loading. These are features that I needed in my applications, but either did not exist in other plugins, or the plugins seem to have been abandoned.</p>
+<h3>TL;DR;</h3>
+
+<p>Use the <a href="https://github.com/42dev/bower-rails">bower-rails</a> gem.</p>
 
 <!-- more -->
 
 
+<p></p>
 
+<p>It provides a number of nice rake tasks that help integrate the use of bower with a rails application and the asset pipeline. I prefer to stick with the bower.json configuration instead of the ruby-based DSL that bower-rails provides. I stick with the default bower location that stores assets in vendor/assets/bower_components. Make sure to add the following to your application.rb.</p>
 
-<figure class='code'><figcaption><span>Installing into a Rails app </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='console'><span class='line'><span class="gp">$</span> script/plugin install git://github.com/eyestreet/active_record_oracle_extensions.git
-</span></code></pre></td></tr></table></div></figure>
+<pre><code>config.assets.paths &lt;&lt;  Rails.root.join("vendor","assets","bower_components")
+</code></pre>
 
+<p>Once you have packages added to your bower.json, then you run the following:</p>
 
-<h2>Adding Foreign Keys In a Migration</h2>
+<pre><code>rake bower:install
+</code></pre>
 
-<p>The example below shows a snippet from a migration that adds a foreign key.</p>
+<p>to install your javascript packages. You then reference the javacript in your application.js and application.css files.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">up</span>
-</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:assets</span><span class="p">,</span> <span class="ss">:force</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">integer</span> <span class="ss">:media_record_id</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span>  <span class="ss">:media_file_name</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">string</span>  <span class="ss">:media_content_type</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">integer</span> <span class="ss">:media_file_size</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="ss">:media_updated_at</span>
-</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>    <span class="n">add_foreign_key_constraint</span> <span class="ss">:assets</span><span class="p">,</span> <span class="ss">:media_record_id</span><span class="p">,</span>
-</span><span class='line'>                                        <span class="ss">:media_records</span><span class="p">,</span> <span class="ss">:id</span>
-</span><span class='line'> <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>For javascript components that reference images within their CSS, you need some mechanism for updating the asset paths to be rails asset pipeline friendly. Bower-rails aids in fixing this issue with the provided rake task:</p>
 
+<pre><code>rake bower:resolve 
+</code></pre>
 
-<h2>Adding a Synonym in Migration</h2>
+<p>It resolves relative asset paths in components by rewriting url references in component css files with the rails helper method to reference the asset in an asset pipeline friendly way. See <a href="https://github.com/42dev/bower-rails/blob/master/lib/bower-rails/performer.rb#L118">BowerRails::Performer#resolve_asset_paths</a> for more detail.</p>
 
-<p>The example below shows the creation of a synonym named events for other_user.events. The force option adds “or replace” to the sql that generates the synonym. It is assumed that the user under which your are creating the synonym already has the needed grants to allow the creation of the synonym on other_user.</p>
+<p>My preference is to check in all of the bower_components into our repository, so we run bower:install followed by bower:resolve. You then need to add the images referenced within the package to your config.assets.precompile list for your staging and production environments. For example here is the setup for adding the <a href="http://ivaynberg.github.io/select2/">select2</a> javascript component to your rails project using bower and rails.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">add_synonym</span> <span class="ss">:events</span><span class="p">,</span> <span class="ss">:other_user</span><span class="p">,</span> <span class="ss">:events</span><span class="p">,</span> <span class="ss">:force</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>bower.json:</p>
 
+<pre><code>{
+    "name": "Acme",
+    "private": true,
+    "dependencies": {
+        "select2": "3.5.1"
+    }
+}
+</code></pre>
 
-<h2>Disabling Constraints During Fixture Loading</h2>
+<p>app/assets/javascripts/application.js.coffee:</p>
 
-<p>If you are using sys or system as your user for your rails application, then do not use this plugin, or use it at your own risk. During fixture loading, this plugin disables constraints for the user that has established the connection to oracle, and then re-enables the constraints after the load.</p>
+<pre><code>#= require select2/select2
+</code></pre>
+
+<p>app/assets/stylesheets/application.css.sass</p>
+
+<pre><code>//= require select2/select2
+</code></pre>
+
+<p>config/environments/staging.rb and config/environments/production.rb:</p>
+
+<pre><code>config.assets.precompile += ["select2/*.png",
+                            "select2/*.gif"]
+</code></pre>
+
+<p>It&rsquo;s not perfect, but it gives you the dependency management of your javascript components, and it&rsquo;s better then trying to figure out what gems you need to pull in to get the desired javascript component enabled for the asset pipeline.</p>
 </div>
 
 
@@ -210,8 +216,15 @@ adapter. Most/all changes have been added to it.</p>
   
 
 
-<time datetime="2009-01-01T22:00:00-07:00" pubdate data-updated="true">Jan 1<span>st</span>, 2009</time> - 
+<time datetime="2014-08-07T23:58:10-06:00" pubdate data-updated="true">Aug 7<span>th</span>, 2014</time> - 
       
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/bower/'>Bower</a>, <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>
+  
+</span>
 
 
     </p>
@@ -226,9 +239,9 @@ adapter. Most/all changes have been added to it.</p>
     <li class="twitter">
       <a href="http://twitter.com/share"
           class="twitter-share-button"
-          data-url="http://rwc9u.github.io/blog/2009/01/01/active-record-oracle-extensions-plugin/"
+          data-url="http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images/"
           data-via="rwc9u"
-          data-counturl="http://rwc9u.github.io/blog/2009/01/01/active-record-oracle-extensions-plugin/">Tweet</a>
+          data-counturl="http://rwc9u.github.io/blog/2014/08/07/bower-rails-and-javascript-components-with-css-and-images/">Tweet</a>
     </li>
     
     
@@ -242,8 +255,8 @@ adapter. Most/all changes have been added to it.</p>
 
     
     
+      <a class="pull-left" href="/blog/2012/06/19/migrations-without-a-restart-on-heroku/" title="Previous Post: Migrations Without a Restart on Heroku">&laquo; Migrations Without a Restart on Heroku</a>
     
-      <a class="pull-right" href="/blog/2009/02/22/better-oracle-support-for-db-structure-dump/" title="Next Post: Better Oracle Support For db:structure:dump">Better Oracle Support For db:structure:dump &raquo;</a>
     
   </footer>
 
